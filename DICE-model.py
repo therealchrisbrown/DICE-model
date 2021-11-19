@@ -6,6 +6,9 @@ import scipy.optimize as opt
 from matplotlib import pyplot as plt
 import pandas as pd
 
+ga0  = 0.076 #    Initial growth rate for TFP per 5 years          /0.076/
+
+
 #Set
 t = np.arange(1, 101)
 NT = len(t)
@@ -30,7 +33,7 @@ dk  = 0.100 #     Depreciation rate on capital (per year)           /.100 /
 q0  = 105.5 #     Initial world gross output 2015 (trill 2010 USD) /105.5/
 k0  = 223 #     Initial capital value 2015 (trill 2010 USD)        /223  /
 a0  = 5.115 #     Initial level of total factor productivity       /5.115/
-ga0  = 0.076 #    Initial growth rate for TFP per 5 years          /0.076/
+#### GEÄNDERT ga0  = 0.076 #    Initial growth rate for TFP per 5 years          /0.076/
 dela  = 0.005 #   Decline rate of TFP per 5 years                  /0.005/
 
 #** Emissions parameters
