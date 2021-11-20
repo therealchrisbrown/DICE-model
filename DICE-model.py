@@ -1,13 +1,22 @@
 from numba.core.types.scalars import parse_integer_bitwidth
 import numpy as np
+import numpy.random as npr
 import time
 from numba import njit,guvectorize,float64
 import scipy.optimize as opt
 from matplotlib import pyplot as plt
 import pandas as pd
 
-ga0  = 0.076 #    Initial growth rate for TFP per 5 years          /0.076/
+###########################################
 
+# WERT 1
+ga0  = 0.08595484684311364 #    Initial growth rate for TFP per 5 years          /0.076/
+
+# WERT 2
+
+# WERT 3
+
+###########################################
 
 #Set
 t = np.arange(1, 101)
@@ -380,7 +389,7 @@ CEMUTOTPER = np.zeros(NT)
 #The objective function
 #It returns the utility as scalar
 def fOBJ(x,sign,iI,iK,ial,il,iYGROSS,isigma,iEIND,iE,iCCA,iCCATOT,icumetree,iMAT,iMU,iML,iFORC,iTATM,iTOCEAN,iDAMFRAC,iDAMAGES,iABATECOST,icost1,iMCABATE,
-         iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI,iNT):
+        iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI,iNT):
     
     iMIU = x[0:NT]
     iS = x[NT:(2*NT)]
@@ -419,7 +428,7 @@ def fOBJ(x,sign,iI,iK,ial,il,iYGROSS,isigma,iEIND,iE,iCCA,iCCATOT,icumetree,iMAT
 
 #For the optimal allocation of x, calculates the whole system variables
 def Optimality(x,iI,iK,ial,il,iYGROSS,isigma,iEIND,iE,iCCA,iCCATOT,icumetree,iMAT,iMU,iML,iFORC,iTATM,iTOCEAN,iDAMFRAC,iDAMAGES,iABATECOST,icost1,iMCABATE,
-         iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI,iNT):
+        iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI,iNT):
     
     iMIU = x[0:NT]
     iS = x[NT:(2*NT)]
@@ -455,10 +464,10 @@ def Optimality(x,iI,iK,ial,il,iYGROSS,isigma,iEIND,iE,iCCA,iCCATOT,icumetree,iMA
     fUTILITY(iCEMUTOTPER, resUtility)
     
     return (resUtility[0],iI,iK,ial,il,iYGROSS,isigma,iEIND,iE,iCCA,iCCATOT,icumetree,iMAT,iMU,iML,iFORC,iTATM,iTOCEAN,iDAMFRAC,iDAMAGES,iABATECOST,icost1,iMCABATE,
-         iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI)
+        iCPRICE,iYNET,iY,iC,iCPC,iPERIODU,iCEMUTOTPER,iRI)
 
 def Df_Figures():
-
+    
     df_TATM = pd.DataFrame(TATM)
     df_TATM.to_csv('./results/TATM.csv', index=False)
     
@@ -582,24 +591,11 @@ if __name__ == '__main__':
     bnds = bnds1 + bnds2
     
     result = opt.minimize(fOBJ, x_start, args=(-1.0,I,K,al,l,YGROSS,sigma,EIND,E,CCA,CCATOT,cumetree,MAT,MU,ML,FORC,TATM,TOCEAN,DAMFRAC,DAMAGES,ABATECOST,cost1,MCABATE,
-         CPRICE,YNET,Y,C,CPC,PERIODU,CEMUTOTPER,RI,NT), method='SLSQP',bounds = tuple(bnds),options={'disp': True})
+        CPRICE,YNET,Y,C,CPC,PERIODU,CEMUTOTPER,RI,NT), method='SLSQP',bounds = tuple(bnds),options={'disp': True})
     FOptimal = Optimality(result.x,I,K,al,l,YGROSS,sigma,EIND,E,CCA,CCATOT,cumetree,MAT,MU,ML,FORC,TATM,TOCEAN,DAMFRAC,DAMAGES,ABATECOST,cost1,MCABATE,
-         CPRICE,YNET,Y,C,CPC,PERIODU,CEMUTOTPER,RI,NT)
+        CPRICE,YNET,Y,C,CPC,PERIODU,CEMUTOTPER,RI,NT)
     
 
     Df_Figures()
     end = time.time()
     print(end - start)
-
-
-
-
-
-
-
-
-
-
-
-
-
